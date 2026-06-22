@@ -1,0 +1,11 @@
+# Configuração do Netlify — site estático, sem build.
+# Publica os arquivos exatamente como estão no repositório.
+[build]
+  publish = "."
+  command = ""
+
+# Garante que /admin sirva o painel corretamente
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
