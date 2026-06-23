@@ -1,0 +1,26 @@
+backend:
+  name: github
+  repo: SEU_USUARIO/SEU_REPOSITORIO   # <-- TROCAR: ex. ygorsoares/ygorsoares-site
+  branch: main
+
+media_folder: "artigos/imagens"
+public_folder: "/artigos/imagens"
+
+locale: pt
+
+collections:
+  - name: "artigos"
+    label: "Artigos do Blog"
+    label_singular: "Artigo"
+    description: "Clique em 'New Artigo' para escrever um novo texto para o blog."
+    folder: "artigos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Título", name: "title", widget: "string", hint: "O título que aparece no Google. Use palavras que as pessoas buscam de verdade." }
+      - { label: "Resumo (aparece no Google)", name: "description", widget: "text", hint: "1 a 2 frases. Máximo 155 caracteres." }
+      - { label: "Data de publicação", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Imagem de capa", name: "thumbnail", widget: "image", required: false, hint: "Opcional. Aparece no topo do artigo e ao compartilhar nas redes." }
+      - { label: "Palavra-chave principal", name: "keyword", widget: "string", required: false, hint: "Ex: rescisão indireta. Ajuda o Google a entender o tema." }
+      - { label: "Conteúdo do artigo", name: "body", widget: "markdown", hint: "Escreva como no Word. Use os títulos (Heading 2 e 3) para organizar as seções." }
