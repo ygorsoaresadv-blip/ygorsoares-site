@@ -4,8 +4,13 @@ build-blog.py — Converte os artigos .md (criados pelo Decap CMS) em paginas HT
 Rode com:  python3 build-blog.py
 Gera: artigos/<slug>.html  e  artigos/index.json (usado pela blog.html)
 """
-import os, re, json, glob
+import os, re, json, glob, sys
 from datetime import datetime
+
+# Trabalha sempre a partir da pasta onde ESTE script esta, nao de onde foi chamado.
+# Isso evita o erro "artigos/index.json nao encontrado" no Netlify.
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+os.chdir(SCRIPT_DIR)
 
 ARTIGOS_DIR = "artigos"
 
@@ -151,6 +156,8 @@ footer a{{color:#6fb89a;text-decoration:none}}
 MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro']
 
 def main():
+    # Garante que a pasta artigos exista (nunca quebra o build por falta dela)
+    os.makedirs(ARTIGOS_DIR, exist_ok=True)
     indice = []
     arquivos = glob.glob(os.path.join(ARTIGOS_DIR, "*.md"))
     print(f"Encontrados {len(arquivos)} artigo(s).")
@@ -208,4 +215,9 @@ def gerar_sitemap(indice):
     print(f"sitemap.xml regenerado com {len(indice)} artigo(s) + paginas fixas.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        # Em caso de erro, avisa mas NAO derruba o deploy do Netlify.
+        print(f"[build-blog] Aviso: {e}", file=sys.stderr)
+        sys.exit(0)

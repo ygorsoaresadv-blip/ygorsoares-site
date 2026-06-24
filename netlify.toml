@@ -1,8 +1,10 @@
-# Configuração do Netlify — site estático, sem build.
-# Publica os arquivos exatamente como estão no repositório.
+# Configuração do Netlify
+# No deploy, roda o build-blog.py que converte os artigos .md (criados no painel
+# Sveltia) em paginas .html, e atualiza a lista do blog (index.json) e o sitemap.
+# A versao do Python e fixada pelo arquivo runtime.txt.
 [build]
   publish = "."
-  command = ""
+  command = "python3 build-blog.py"
 
 # Garante que /admin sirva o painel corretamente
 [[redirects]]
