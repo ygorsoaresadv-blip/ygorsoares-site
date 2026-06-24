@@ -275,14 +275,62 @@ footer{background:var(--verde-profundo);padding:64px 5% 40px}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease}
 .reveal.visible{opacity:1;transform:none}
 
+/* MENU HAMBURGUER (escondido no desktop) */
+.menu-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:transparent;border:none;cursor:pointer;padding:8px;z-index:120}
+.menu-toggle span{display:block;width:26px;height:2px;background:var(--verde-escuro);transition:transform 0.3s,opacity 0.3s}
+.menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
 @media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
-  .como-grid{grid-template-columns:1fr}.step-line{display:none}
-  .grat-inner{grid-template-columns:1fr}.cta-inner{flex-direction:column;text-align:center}
-  .footer-top{flex-direction:column}.calc-fields{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr;gap:48px}
+  .hero-right{display:none}
+  .como-grid{grid-template-columns:1fr;gap:32px}.step-line{display:none}
+  .grat-inner{grid-template-columns:1fr}.cta-inner{flex-direction:column;text-align:center;gap:32px}
+  .footer-top{flex-direction:column;gap:36px}.calc-fields{grid-template-columns:1fr}
 }
+
+/* MOBILE: menu vira hamburguer + ajustes de layout */
 @media(max-width:768px){
-  nav{display:none}
+  header{padding:0 20px}
+  .header-inner{height:64px}
+  .menu-toggle{display:flex}
+  nav{
+    position:fixed;top:64px;left:0;right:0;
+    background:#fff;border-bottom:1px solid var(--borda);
+    flex-direction:column;align-items:stretch;gap:0;
+    padding:8px 0;
+    transform:translateY(-12px);opacity:0;pointer-events:none;
+    transition:transform 0.25s,opacity 0.25s;
+    box-shadow:0 8px 24px rgba(12,70,50,0.08);
+  }
+  nav.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  nav a{padding:14px 24px;border-bottom:1px solid rgba(31,107,82,0.08)}
+  nav .nav-ig{padding:14px 24px}
+  nav .nav-ig svg{width:22px;height:22px}
+  .btn-nav{margin:12px 24px 8px;text-align:center;padding:14px 20px}
+
+  /* Tipografia e espacamentos mobile */
+  .hero{padding-top:64px;min-height:auto;padding-bottom:60px}
+  .hero h2{font-size:30px;line-height:1.2}
+  .areas,.calc-section,.como,.chat-section,.gratuidade,.cta-section{padding:60px 20px}
+  .areas-grid{grid-template-columns:1fr}
+  .section-h{font-size:26px;margin-bottom:32px}
+  .calc-fields{padding:24px}
+  .calc-result{padding:24px}
+  .chat-messages{height:300px}
+  .msg{max-width:88%}
+  footer{padding:48px 20px 32px}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+  .float-stack{right:16px;bottom:16px}
+  .float-btn{width:50px;height:50px}
+}
+
+/* Telas muito pequenas */
+@media(max-width:380px){
+  .hero h2{font-size:26px}
+  .logo-text h1{font-size:13px;letter-spacing:2px}
+  .stat-card .num{font-size:30px}
 }
 </style>
 </head>
@@ -308,11 +356,14 @@ footer{background:var(--verde-profundo);padding:64px 5% 40px}
         <p class="oab-header">OAB/SP XXX.XXX</p>
       </div>
     </div>
-    <nav aria-label="Navegação principal">
-      <a href="#areas">Atuação</a>
-      <a href="#calculadora">Calculadora</a>
-      <a href="#chat">Tire Dúvidas</a>
-      <a href="blog.html">Blog</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav aria-label="Navegação principal" id="mainNav">
+      <a href="#areas" onclick="closeMenu()">Atuação</a>
+      <a href="#calculadora" onclick="closeMenu()">Calculadora</a>
+      <a href="#chat" onclick="closeMenu()">Tire Dúvidas</a>
+      <a href="blog.html" onclick="closeMenu()">Blog</a>
       <a class="nav-ig" href="https://www.instagram.com/ygorsoares_bjj" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#0c4632" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#0c4632" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="#0c4632"/></svg>
       </a>
@@ -565,6 +616,24 @@ footer{background:var(--verde-profundo);padding:64px 5% 40px}
 
 <script>
 const WHATSAPP='5511991680688';
+
+// Menu hamburguer (mobile)
+function toggleMenu(){
+  const nav=document.getElementById('mainNav');
+  const btn=document.getElementById('menuToggle');
+  const aberto=nav.classList.toggle('open');
+  btn.classList.toggle('open',aberto);
+  btn.setAttribute('aria-expanded',aberto?'true':'false');
+  btn.setAttribute('aria-label',aberto?'Fechar menu':'Abrir menu');
+}
+function closeMenu(){
+  const nav=document.getElementById('mainNav');
+  const btn=document.getElementById('menuToggle');
+  nav.classList.remove('open');
+  btn.classList.remove('open');
+  btn.setAttribute('aria-expanded','false');
+  btn.setAttribute('aria-label','Abrir menu');
+}
 let userQuestion='';
 let chatStep=0;
 

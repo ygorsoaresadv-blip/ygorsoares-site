@@ -120,6 +120,21 @@ article a{{color:var(--verde-medio)}}
 footer{{background:var(--verde-profundo);padding:48px 5%;text-align:center;margin-top:0}}
 footer p{{font-size:13px;color:rgba(255,255,255,0.4);margin:4px 0}}
 footer a{{color:#6fb89a;text-decoration:none}}
+@media(max-width:768px){{
+  header{{padding:10px 20px}}
+  .header-inner{{height:auto;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}}
+  nav{{margin:0}}
+  nav a:first-child{{margin-left:0}}
+  nav a{{margin-left:18px;font-size:11px;letter-spacing:2px}}
+  article{{padding:40px 20px 32px}}
+  article h1.art-title{{font-size:28px}}
+  article h2{{font-size:23px;margin:32px 0 14px}}
+  article h3{{font-size:19px}}
+  article p,article li{{font-size:17px}}
+  .art-cta{{padding:32px 24px}}
+  .art-cta h3{{font-size:21px}}
+  footer{{padding:40px 20px}}
+}}
 </style>
 </head>
 <body>

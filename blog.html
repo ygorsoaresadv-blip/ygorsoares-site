@@ -52,7 +52,34 @@ nav a:hover{color:var(--verde-claro)}
 footer{background:var(--verde-profundo);padding:48px 5%;text-align:center}
 footer p{font-size:13px;color:rgba(255,255,255,0.4);letter-spacing:1px;margin:4px 0}
 footer a{color:#6fb89a;text-decoration:none}
-@media(max-width:768px){nav .nav-hide{display:none}}
+
+/* MENU HAMBURGUER */
+.menu-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:transparent;border:none;cursor:pointer;padding:8px;z-index:120}
+.menu-toggle span{display:block;width:26px;height:2px;background:var(--verde-escuro);transition:transform 0.3s,opacity 0.3s}
+.menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:768px){
+  header{padding:0 20px}
+  .header-inner{height:64px}
+  .menu-toggle{display:flex}
+  nav{
+    position:fixed;top:64px;left:0;right:0;
+    background:#fff;border-bottom:1px solid var(--borda);
+    flex-direction:column;align-items:stretch;gap:0;padding:8px 0;
+    transform:translateY(-12px);opacity:0;pointer-events:none;
+    transition:transform 0.25s,opacity 0.25s;
+    box-shadow:0 8px 24px rgba(12,70,50,0.08);
+  }
+  nav.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  nav a{padding:14px 24px;border-bottom:1px solid rgba(31,107,82,0.08)}
+  .btn-nav{margin:12px 24px 8px;text-align:center}
+  .blog-hero{padding:56px 20px 40px}
+  .blog-hero h2{font-size:30px}
+  .blog-list{padding:48px 20px 60px;grid-template-columns:1fr;gap:24px}
+  footer{padding:40px 20px}
+}
 </style>
 </head>
 <body>
@@ -63,11 +90,14 @@ footer a{color:#6fb89a;text-decoration:none}
       <div class="logo-divider"></div>
       <div class="logo-text"><h1>Ygor Soares</h1><p>Advogado</p><p class="oab-header">OAB/SP XXX.XXX</p></div>
     </a>
-    <nav>
-      <a class="nav-hide" href="index.html#areas">Atuação</a>
-      <a class="nav-hide" href="index.html#calculadora">Calculadora</a>
-      <a href="blog.html">Blog</a>
-      <a class="btn-nav" href="index.html#chat">Tire Dúvidas</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mainNav">
+      <a href="index.html#areas" onclick="closeMenu()">Atuação</a>
+      <a href="index.html#calculadora" onclick="closeMenu()">Calculadora</a>
+      <a href="blog.html" onclick="closeMenu()">Blog</a>
+      <a class="btn-nav" href="index.html#chat" onclick="closeMenu()">Tire Dúvidas</a>
     </nav>
   </div>
 </header>
@@ -88,6 +118,19 @@ footer a{color:#6fb89a;text-decoration:none}
 </footer>
 
 <script>
+// Menu hamburguer (mobile)
+function toggleMenu(){
+  const nav=document.getElementById('mainNav');
+  const btn=document.getElementById('menuToggle');
+  const aberto=nav.classList.toggle('open');
+  btn.classList.toggle('open',aberto);
+  btn.setAttribute('aria-expanded',aberto?'true':'false');
+}
+function closeMenu(){
+  document.getElementById('mainNav').classList.remove('open');
+  document.getElementById('menuToggle').classList.remove('open');
+}
+
 // Lê o índice de artigos e monta os cards
 fetch('artigos/index.json')
   .then(r => r.ok ? r.json() : [])
