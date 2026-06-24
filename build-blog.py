@@ -65,14 +65,14 @@ PAGE_TEMPLATE = '''<!DOCTYPE html>
 <meta name="description" content="{description}">
 <meta name="keywords" content="{keyword}, direitos trabalhistas, advogado trabalhista">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ygorsoares.netlify.app/artigos/{slug}.html">
+<link rel="canonical" href="https://ygorsoaresadv-blip.github.io/ygorsoares-site/artigos/{slug}.html">
 <title>{title} | Dr. Ygor Soares</title>
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
-<meta property="og:image" content="https://ygorsoares.netlify.app/og-image.png">
-<meta property="og:url" content="https://ygorsoares.netlify.app/artigos/{slug}.html">
+<meta property="og:image" content="https://ygorsoaresadv-blip.github.io/ygorsoares-site/og-image.png">
+<meta property="og:url" content="https://ygorsoaresadv-blip.github.io/ygorsoares-site/artigos/{slug}.html">
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
@@ -205,7 +205,7 @@ def main():
     print(f"index.json atualizado com {len(indice)} artigo(s).")
     gerar_sitemap(indice)
 
-SITE = "https://ygorsoares.netlify.app"
+SITE = "https://ygorsoaresadv-blip.github.io/ygorsoares-site"
 
 def gerar_sitemap(indice):
     """Gera o sitemap.xml incluindo paginas fixas + todos os artigos."""

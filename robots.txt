@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ygorsoares.netlify.app/sitemap.xml
+Sitemap: https://ygorsoaresadv-blip.github.io/ygorsoares-site/sitemap.xml
