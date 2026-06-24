@@ -141,7 +141,7 @@ footer a{{color:#6fb89a;text-decoration:none}}
   <p class="disclaimer">Este artigo tem caráter informativo e não substitui a orientação jurídica individualizada. Cada caso deve ser analisado de forma específica.</p>
 </article>
 <footer>
-  <p>© 2025 Ygor Soares Sociedade Unipessoal de Advocacia · OAB/SP XXX.XXX</p>
+  <p>© 2025 Ygor Soares · Advogado · OAB/SP XXX.XXX</p>
   <p><a href="../index.html">Início</a> · <a href="../blog.html">Blog</a> · <a href="../politica-de-privacidade.html">Política de Privacidade</a></p>
 </footer>
 </body>
