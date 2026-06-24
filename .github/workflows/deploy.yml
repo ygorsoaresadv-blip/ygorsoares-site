@@ -1,0 +1,53 @@
+# Automação do GitHub Pages para o site Ygor Soares
+# A cada alteração na branch main, roda o build-blog.py (gera os artigos)
+# e publica o site no GitHub Pages — de graça, sem limite de créditos.
+name: Publicar site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # permite rodar manualmente pelo botão "Run workflow"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita publicações simultâneas conflitantes
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar os arquivos do repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Gerar as páginas dos artigos
+        run: python3 build-blog.py
+
+      - name: Preparar para o Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar o site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
