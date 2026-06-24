@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: ygorsoaresadv-blip/ygorsoares-site   # <-- TROCAR: ex. ygorsoares/ygorsoares-site
+  repo: SEU_USUARIO/SEU_REPOSITORIO   # <-- TROCAR: ex. ygorsoares/ygorsoares-site
   branch: main
 
 media_folder: "artigos/imagens"
